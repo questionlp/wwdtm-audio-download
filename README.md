@@ -39,9 +39,7 @@ NPR does not include credits as part of their audio segments and musical interst
 
 ## Code of Conduct
 
-This projects follows the code of conduct as outlined in [Contributor Convenant 3.0](https://www.contributor-covenant.org/version/3/0/code_of_conduct/).
-
-A copy of the code of conduct with information on how to report possible violations are available in the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) file.
+The Code of Conduct for this project is adapted from the Contributor Covenant, version 3.0, permanently available at <https://www.contributor-covenant.org/version/3/0/>. The adapted version with instructions on how to report possible violations are available in the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) file in this repository.
 
 ## License
 
