@@ -3,16 +3,17 @@
 # SPDX-License-Identifier: MIT
 #
 # vim: set noai syntax=python ts=4 sw=4:
-"""Wait Wait Audio File Downloader."""
+"""Wait Wait Don't Tell Me Segment Audio Downloader Script."""
 
 import datetime
 import json
 from pathlib import Path
 
 import requests
-from mysql.connector import connect, types
+from mysql.connector import connect
 from mysql.connector.connection import MySQLConnection
 from mysql.connector.cursor import MySQLCursor
+from mysql.connector.types import RowType
 
 
 def read_database_config(
@@ -38,7 +39,7 @@ def retrieve_show_dates(
     )
     cursor: MySQLCursor = database_connection.cursor(dictionary=False)
     cursor.execute(query, (start_year,))
-    results: list[types.RowType] = cursor.fetchall()
+    results: list[RowType] = cursor.fetchall()
     cursor.close()
 
     if not results:
@@ -62,7 +63,7 @@ def download_segments(show_date: datetime.date, destination_path: Path) -> None:
     for segment in range(1, 11):
         audio_url: str = f"{url_prefix}/{_year}/{_month}/{_year}{_month}{_day}_waitwait_{segment:02d}.mp3"
         file_name: str = f"WW {_year}-{_month}-{_day} S{segment:02d}.mp3"
-        _year_path = destination_path / _year
+        _year_path: Path = destination_path / _year
         if not _year_path.exists():
             _year_path.mkdir()
 
@@ -73,10 +74,12 @@ def download_segments(show_date: datetime.date, destination_path: Path) -> None:
                 _file.write(response.content)
 
 
-_config = read_database_config()
+_config: dict[str, str | int | float | bool | None] = read_database_config()
 if _config:
-    _database_connection = connect(**_config)
-    _dates = retrieve_show_dates(database_connection=_database_connection)
+    _database_connection: MySQLConnection = connect(**_config)
+    _dates: list[datetime.date] = retrieve_show_dates(
+        database_connection=_database_connection
+    )
 
     if _dates:
         for _date in _dates:
