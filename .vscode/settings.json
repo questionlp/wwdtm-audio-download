@@ -1,0 +1,11 @@
+{
+    "python.testing.pytestEnabled": false,
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.sortImports": "explicit",
+        },
+    }
+}
