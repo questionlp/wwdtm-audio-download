@@ -53,7 +53,9 @@ def retrieve_show_dates(
     return _dates
 
 
-def download_segments(show_date: datetime.date, destination_path: Path) -> None:
+def download_segments(
+    show_date: datetime.date, destination_path: Path, file_name_prefix: str = "WWDTM"
+) -> None:
     """Download audio segments for a specific show date."""
     url_prefix: str = "https://ondemand.npr.org/anon.npr-mp3/npr/waitwait"
     _year: str = f"{show_date.year:04d}"
@@ -62,7 +64,9 @@ def download_segments(show_date: datetime.date, destination_path: Path) -> None:
 
     for segment in range(1, 11):
         audio_url: str = f"{url_prefix}/{_year}/{_month}/{_year}{_month}{_day}_waitwait_{segment:02d}.mp3"
-        file_name: str = f"WW {_year}-{_month}-{_day} S{segment:02d}.mp3"
+        file_name: str = (
+            f"{file_name_prefix} {_year}-{_month}-{_day} S{segment:02d}.mp3"
+        )
         _year_path: Path = destination_path / _year
         if not _year_path.exists():
             _year_path.mkdir()
